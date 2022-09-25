@@ -1,0 +1,113 @@
+	Softwares
+-Composer
+-Node.js
+-Laravel ()
+-Apache (XAMP,WAMP...)
+-Visual Code (softwares e plugins: Composer, Laravel)
+
+	Comando terminal (instalar composer manual):
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+
+	Criar projeto
+-Entrar pasta projeto
+-Clique direito + shift: abrir no shell:
+#ou
+-Utilizando cmd (apenas navegar entre pastas)
+composer create-project laravel/laravel
+composer create-project --prefer-dist laravel/laravel projeto v7.* (especificar prefer-dist para versão específica)
+laravel new nomedoprojeto
+
+	Criar Controller/Model/View
+-Entrar pasta projeto
+php artisan make:controller NomeController
+php artisan make:model NomeModel
+-Gerar view com extensão ".blade.php"
+
+	Gerar modelo HTML
+-No arquivo:
+html (selecionar preset "html:5")
+
+	Processo node
+-No CMD - pasta do projeto
+node -v (checar versão)
+npm install
+npm run dev (processo laravel. Rodar após alterações nos "style.css")
+npm install laravel-mix --save-dev (processo laravel. Rodar após criar ou modificar arquivos "package.json", "webpack.mix.js", pasta "images" e arquivo "style.css"
+
+	Rotina
+-Abrir Apache
+-Abrir VsCode
+-No VsCode, abrir terminal: php artisan serve
+-Entrar endereço web - chechar funcionalidade
+-Ao abrir projeto do GitHub, rodar cmd: php artisan key:generate
+#ou
+-Ao abrir projeto sem pasta "vendor", rodar cmd: composer update
+
+	Laravel
+-Modificação arquivo "package.json":
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.54.8",
+        "sass-loader": "^12.1.0"
+    }
+}
+
+-Criar arquivo "webpack.mix.js":
+const mix = require('laravel-mix');
+
+/*
+ |--------------------------------------------------------------------------
+ | Mix Asset Management
+ |--------------------------------------------------------------------------
+ |
+ | Mix provides a clean, fluent API for defining some Webpack build steps
+ | for your Laravel applications. By default, we are compiling the CSS
+ | file for the application as well as bundling up all the JS files.
+ |
+ */
+
+mix
+    .js('resources/js/app.js', 'public/js')
+    .copy('resources/images', 'public/images')
+    .postCss('resources/css/app.css', 'public/css')
+    .postCss('resources/css/style.css', 'public/css');
+
+-Criar pasta "images" em "resources"
+-Criar arquivo "style.css" em "css"
+
+Para casa
+remover maioria do conetudo
+deixar apenas o menu e footer
+ @yield('content')
+
+repetir em cursos e contatos (com formularios)
+contatos com nome email e mensagem
+cursos com apenas nome
+
+-Criar Banco de dados
+
+php artisan migrate --> criar tabela DB
+php artisan make:migration add_nome_to_contato_table --> cria outro migration
+php artisan migrate:fresh --> refaz o banco
+
+
+-Criar uma controler com as funções para gerenciamento e a model.
+php artisan make:controller CursoManagerController --resource --model=Curso
